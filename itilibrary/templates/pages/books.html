@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="my-form container p-5 my-5 rounded border border-warning">
+    <form>
+        <h2 class="text-center">All Books</h2>
+        <hr>
+
+        <section>
+            <div class="container-fluid">
+                <div class="row p-5">
+                    {% for b in bro %}
+                    <div>
+                        <div class="card m-2" style="width: 18rem;">
+                            <img src="{{b.photo.url}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{b.name}} by {{b.author}}</h5>
+                                <p class="card-text text-truncate">{{b.description}}</p>
+                                <a href="{% url 'book' id=b.id %}" class="btn btn-warning">Show Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+
+
+    </form>
+
+</div>
+{% endblock %}

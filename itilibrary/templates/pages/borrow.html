@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="my-form container p-5 my-5 rounded border border-warning">
+    <h2 class="text-center">Borrowed books</h2>
+    <hr> {% if not request.user.is_authenticated %}
+    <h4 class="alert alert-danger">You must be;
+        <a href="{% url 'stdsignin' %}" class="text-dark">Logged In</a>
+    </h4>
+    {% elif request.user.is_authenticated %}
+    <br>
+    <h5>
+        Username: <span class="my-num">{{borr.student.user.username}}</span>
+        <a href="{% url 'books' %}" class="btn btn-outline-warning float-right m-1">All Books</a>
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary float-right m-1">Home</a>
+        <br><br>
+
+    </h5>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Book Name</th>
+                <th scope="col">Issue_date</th>
+                <th scope="col">Return</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row">1</th>
+                <td>{{borr.student.user.first_name|add:' '|add:borr.student.user.last_name}}</td>
+                <td>{{borr.book}}</td>
+                <td>{{borr.issue_date}}</td>
+                <td>
+                    <a href="{% url 'delborrow' id=borr.id %}" class="btn btn-outline-danger btn-sm">Return</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% else %}
+    <h4 class="alert alert-danger">No Books here;
+        <a href="{% url 'books' %}" class="text-dark">All Books</a>
+    </h4>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="my-form container p-5 my-5 rounded border border-warning">
+    <h2 class="text-center">Borrowed books</h2>
+    <hr> {% if not request.user.is_superuser %}
+    <h4 class="alert alert-danger">You must be;
+        <a href="{% url 'adminsignin' %}" class="text-dark">Logged In</a>
+    </h4>
+    {% elif request.user.is_authenticated and request.user.is_superuser %}
+    <br>
+    <h5>
+        Username: <span class="my-num">{{request.user.username}}</span>
+        <a href="{% url 'books' %}" class="btn btn-outline-warning float-right m-1">All Books</a>
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary float-right m-1">Home</a>
+        <br><br>
+
+    </h5>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Book Name</th>
+                <th scope="col">Issue_date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in borr %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{line.student.user.first_name|add:' '|add:line.student.user.last_name}}</td>
+                <td>{{line.book}}</td>
+                <td>{{line.issue_date}}</td>
+            </tr>
+            {% empty %}
+            <h5 class="alert alert-danger">No borrowed books here</h5>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h4 class="alert alert-danger">No borrowed books here;
+        <a href="{% url 'books' %}" class="text-dark">All Products</a>
+    </h4>
+    {% endif %}
+</div>
+{% endblock %}

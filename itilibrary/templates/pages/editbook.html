@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content %}
+<div class="my-form container p-3 my-5 rounded border border-warning">
+    <h2 class="text-center">Edit Book</h2>
+    <hr> {% include 'partials/_alerts.html' %} {% if request.user.is_superuser %}
+    <form>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputName">Name</label>
+                <input type="text" class="form-control" id="inputName" name="name" value="{{pro.name}}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAuthor">Author</label>
+                <input type="text" class="form-control" id="inputAuthor" name="author" value="{{pro.author}}" required>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDesc">Description</label>
+                <input type="text" class="form-control" id="inputDesc" name="description" value="{{pro.description}}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPrice">Price</label>
+                <input type="number" class="form-control" id="inputPrice" name="price" value="{{pro.price}}" required>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCat">Category</label><br>
+                <select class="form-control" aria-label="Default select example" name="category">
+                    <option value="education">Education</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="comics">Comics</option>
+                    <option value="biographic">Biographic</option>
+                    <option value="history">History</option>
+                  </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="fileToUpload">Photo</label><br>
+                <input type="file" name="photo" id="fileToUpload">
+            </div>
+
+        </div>
+
+
+
+
+        <button type="submit" class="btn btn-warning" name="btnupdate">Update Book</button>
+    </form>
+    {% else %}
+    <h4 class="alert alert-danger">Page not found</h4>
+    {% endif %}
+</div>
+{% endblock %}
